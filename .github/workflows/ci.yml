@@ -8,7 +8,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +26,13 @@ jobs:
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
+      - name: Validate Render deploy hook is set
+        run: |
+          if [ -z "${{ secrets.RENDER_DEPLOY_HOOK }}" ]; then
+            echo "RENDER_DEPLOY_HOOK secret is not set. Add it in GitHub repo settings."
+            exit 0
+          fi
+
       - name: Trigger Render deploy hook
         run: curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
