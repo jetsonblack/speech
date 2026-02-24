@@ -1,1 +1,6 @@
 .env
+target/
+data/
+*.db
+.DS_Store
+.env
