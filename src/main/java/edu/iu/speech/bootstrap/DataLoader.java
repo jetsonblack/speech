@@ -6,7 +6,7 @@ import edu.iu.speech.data.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Profile("dev")
+@Profile({"dev","prod"})
 @Component
 public class DataLoader implements CommandLineRunner {
 
