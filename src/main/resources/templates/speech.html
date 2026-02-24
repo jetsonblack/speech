@@ -1,0 +1,23 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title th:text="${speech.title}">Speech</title>
+</head>
+<body>
+  <p><a href="/toc">← Back to TOC</a></p>
+
+  <h1 th:text="${speech.title}">Title</h1>
+  <p>
+    <strong th:text="${speech.person.name}">Person</strong>
+    <span> • </span>
+    <span th:text="${speech.category.name}">Category</span>
+  </p>
+
+  <div th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">
+    <audio controls th:src="${speech.audioUrl}"></audio>
+  </div>
+
+  <pre th:text="${speech.content}">Content</pre>
+</body>
+</html>

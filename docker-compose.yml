@@ -4,7 +4,8 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: "jdbc:sqlite:/data/app.db"
+      SPRING_PROFILES_ACTIVE: "dev"
+      SPRING_DATASOURCE_URL: "jdbc:sqlite:/data/app.db?foreign_keys=on"
       SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
     volumes:
       - speeches-db:/data

@@ -16,7 +16,7 @@ RUN mkdir -p /data
 COPY --from=build /app/target/*.jar /app/app.jar
 
 EXPOSE 8080
-
-ENV SPRING_DATASOURCE_URL=jdbc:sqlite:/data/app.db
+ENV SPRING_PROFILES_ACTIVE=dev
+ENV SPRING_DATASOURCE_URL=jdbc:sqlite:/data/app.db?foreign_keys=on
 
 ENTRYPOINT ["java","-jar","/app/app.jar"]
