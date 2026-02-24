@@ -1,0 +1,165 @@
+/* NOT INLOVE WITH THIS FONT COULD CHANGE IT LATER IDK */
+@font-face {
+    font-family: "decima";
+    src: url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.eot");
+    src:
+        url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.eot?#iefix") format("embedded-opentype"),
+        url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.woff2") format("woff2"),
+        url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.woff") format("woff"),
+        url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.ttf") format("truetype"),
+        url("https://db.onlinewebfonts.com/t/a57898f1c888d0b61730477a1c77974a.svg#Decima Mono Pro Regular") format("svg");
+}
+
+/* base colors and selection stuff from old site */
+:root {
+    --bg: #fcfcfc;
+    --panel: #fff;
+    --text: #111;
+    --muted: #555;
+    --border: #111;
+    --soft: rgba(17, 17, 17, .25);
+    --accent: #1e5eff;
+    --accent-ink: #0b1b4f;
+}
+
+::selection {
+    background: #111;
+    color: #eee;
+}
+
+::-moz-selection {
+    background: #111;
+    color: #eee;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.k {
+    color: var(--muted);
+}
+
+.v {
+    color: var(--text);
+}
+
+
+body {
+    font-family: decima, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 60px auto;
+    padding: 0 16px;
+    max-width: 72em;
+    color: var(--text);
+    background: var(--bg);
+    overflow-wrap: break-word;
+}
+
+.container {
+    max-width: 70rem;
+    margin: 0 auto;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    background: var(--panel);
+    padding: 22px;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.sep {
+    padding: 0 8px;
+    color: var(--muted);
+}
+
+a,
+a:visited,
+a:active {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+a:hover {
+    color: #fff;
+    background: var(--accent);
+    text-decoration: none;
+}
+
+.site-nav a[aria-current="page"] {
+    color: var(--accent-ink);
+    background: transparent;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-ink);
+    padding-bottom: 2px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+
+.hero {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+
+.badge {
+    border: 1px solid var(--soft);
+    padding: 6px 10px;
+    background: #fff;
+}
+
+
+/* hint colors, use in a div for a little spice of color for important things (currently used for accent and TODO) */
+.hint {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    border-left: 3px solid var(--accent);
+    padding: 10px 12px;
+    background: rgba(30, 94, 255, .06);
+    color: var(--accent-ink);
+}
+
+
+.toast {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid var(--soft);
+}
+
+.toast.ok {
+    background: rgba(0, 180, 90, .08);
+}
+
+.toast.warn {
+    background: rgba(255, 170, 0, .12);
+}
+
+.site-footer {
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px solid var(--soft);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* JUST FOR FUN add little button or keybind to make the background more fun*/
+body .fun {
+    background-color: #FFFFFF;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='30' viewBox='0 0 1000 120'%3E%3Cg fill='none' stroke='%23222' stroke-width='10' opacity='0.01'%3E%3Cpath d='M-500 75c0 0 125-30 250-30S0 75 0 75s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 45c0 0 125-30 250-30S0 45 0 45s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 105c0 0 125-30 250-30S0 105 0 105s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 15c0 0 125-30 250-30S0 15 0 15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500-15c0 0 125-30 250-30S0-15 0-15s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3Cpath d='M-500 135c0 0 125-30 250-30S0 135 0 135s125 30 250 30s250-30 250-30s125-30 250-30s250 30 250 30s125 30 250 30s250-30 250-30'/%3E%3C/g%3E%3C/svg%3E");
+}
