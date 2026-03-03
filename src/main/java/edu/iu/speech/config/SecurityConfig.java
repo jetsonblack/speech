@@ -22,6 +22,7 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    // setup users, using inMemoryUserDetailsManager since we can hard code users.
     @Bean
     UserDetailsService userDetailsService(PasswordEncoder encoder) {
         UserDetails user = User.withUsername("user")
@@ -37,6 +38,7 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(user, admin);
     }
 
+    // setup autherization stuff, setup for requirements
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
