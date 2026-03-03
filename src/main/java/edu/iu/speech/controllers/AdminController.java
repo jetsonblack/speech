@@ -1,4 +1,4 @@
-package edu.iu.speech.controller;
+package edu.iu.speech.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
