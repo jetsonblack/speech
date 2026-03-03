@@ -47,12 +47,9 @@ public interface SpeechRepository extends JpaRepository<Speech, Long> {
     List<Speech> searchByCategoryName(@Param("q") String q);
     
     @Query("""
-        select s
-        from Speech s
-        left join s.person p
-        left join s.category c
+        select s from Speech s
         where lower(s.title) like lower(concat('%', :q, '%'))
-           or lower(s.content) like lower(concat('%', :q, '%'))
+        or s.content like concat('%', :q, '%')
         order by s.title asc
     """)
     List<Speech> searchByTitleOrText(@Param("q") String q);
