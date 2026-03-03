@@ -10,4 +10,10 @@ class SpeechApplicationTests {
 	void contextLoads() {
 	}
 
+	// NEED TO ADD MORE TESTS
+	@Test
+	void sanityCheck() {
+		assert (true);
+	}
+
 }

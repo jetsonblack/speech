@@ -1,9 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="utf-8">
   <title th:text="${speech.title}">Speech</title>
 </head>
+
 <body>
   <p><a href="/toc">← Back to TOC</a></p>
 
@@ -20,4 +22,5 @@
 
   <pre th:text="${speech.content}">Content</pre>
 </body>
+
 </html>
