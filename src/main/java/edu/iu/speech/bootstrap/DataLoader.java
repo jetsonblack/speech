@@ -37,7 +37,7 @@ public class DataLoader implements CommandLineRunner {
         speechRepository.save(new Speech(
                 "I spent 8 hours on this",
                 "im sleepy i wanna go to bed :)",
-                https://jetsonblack.com/pain.mp3,
+                "https://jetsonblack.com/pain.mp3",
                 p1, c1
         ));
 
