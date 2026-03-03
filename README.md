@@ -1,5 +1,18 @@
 # jetblack
-### this better owrk or I am going to cry
+### TODO: 
+[ ] Add Login text to the screen (something like, you are logged in as ...)
+[ ] add data persistence actually, right now it just bootstraps it in
+[ ] admin CRUD application
+[ ] admin templates for all actions and such
+[ ] SCRUM-62 Validation
+[ ] SCRUM-64 Friendly error handling
+[ ] SCRUM-70 UI/UX polish beyond basic styling
+
+
+### where I am at:
+Currently the MVP does:
+- it has ccore browsing and search capabilities, it has security config setup for users to be able to use the application with or without login, admin routes protected, hardcoded users
+- Entities: Speech, Person, Category
 
 demo code
 describe what i have implemented and why stories are associated with what I have read
