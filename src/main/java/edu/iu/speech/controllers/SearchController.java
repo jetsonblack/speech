@@ -1,7 +1,7 @@
-package edu.iu.speech.controller;
+package edu.iu.speech.controllers;
 
-import edu.iu.speech.data.SpeechRepository;
-import edu.iu.speech.model.Speech; 
+import edu.iu.speech.data.entities.Speech;
+import edu.iu.speech.data.repositories.SpeechRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
