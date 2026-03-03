@@ -1,12 +1,15 @@
 # jetblack
+![Deployment Status](https://img.shields.io/website?url=https://speech-xhs8.onrender.com)
+![MoJ CI Pipeline](https://github.com/jetsonblack/speech/actions/workflows/ci.yml/badge.svg?branch=main)
+
 ### TODO: 
-[ ] Add Login text to the screen (something like, you are logged in as ...)
-[ ] add data persistence actually, right now it just bootstraps it in
-[ ] admin CRUD application
-[ ] admin templates for all actions and such
-[ ] SCRUM-62 Validation
-[ ] SCRUM-64 Friendly error handling
-[ ] SCRUM-70 UI/UX polish beyond basic styling
+-[ ] Add Login text to the screen (something like, you are logged in as ...)
+-[ ] add data persistence actually, right now it just bootstraps it in
+-[ ] admin CRUD application
+-[ ] admin templates for all actions and such
+-[ ] SCRUM-62 Validation
+-[ ] SCRUM-64 Friendly error handling
+-[ ] SCRUM-70 UI/UX polish beyond basic styling
 
 
 ### where I am at:
