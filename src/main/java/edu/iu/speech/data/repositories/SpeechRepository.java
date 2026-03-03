@@ -25,4 +25,37 @@ public interface SpeechRepository extends JpaRepository<Speech, Long> {
         where s.id = :id
     """)
     Optional<Speech> findByIdWithRefs(@Param("id") Long id);
+
+    @Query("""
+            select s
+            from Speech s
+            left join s.person p
+            left join s.category c
+            where lower(p.person) like lower(concat('%', :q, '%'))
+            order by s.title asc
+    """)
+    List<Speech> searchByPersonName(@Param("q") String q);
+
+    @Query("""
+        select s
+        from Speech s
+        left join s.person p
+        left join s.category c
+        where lower(c.name) like lower(concat('%', :q, '%'))
+        order by s.title asc
+    """)
+    List<Speech> searchByCategoryName(@Param("q") String q);
+    
+    @Query("""
+        select s
+        from Speech s
+        left join s.person p
+        left join s.category c
+        where lower(s.title) like lower(concat('%', :q, '%'))
+           or lower(s.content) like lower(concat('%', :q, '%'))
+        order by s.title asc
+    """)
+    List<Speech> searchByTitleOrText(@Param("q") String q);
+
+
 }

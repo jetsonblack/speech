@@ -30,21 +30,21 @@ public class DataLoader implements CommandLineRunner {
         var p2 = personRepository.save(new Person("Martin Luther King Jr."));
         var p3 = personRepository.save(new Person("Franklin D. Roosevelt"));
 
-        var c1 = categoryRepository.save(new Category("Deperssion"));
+        var c1 = categoryRepository.save(new Category("Test"));
         var c2 = categoryRepository.save(new Category("Civil Rights"));
         var c3 = categoryRepository.save(new Category("War"));
 
         speechRepository.save(new Speech(
                 "I spent 8 hours on this",
                 "im sleepy i wanna go to bed :)",
-                null,
+                https://jetsonblack.com/pain.mp3,
                 p1, c1
         ));
 
         speechRepository.save(new Speech(
                 "I Have a Dream",
                 "I have a dream that one day ...",
-                "https://jetsonblack.com/pain.mp3",
+                null,
                 p2, c2
         ));
 

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+<nav class="site-nav" aria-label="Primary">
+  <a href="/">Home</a>
+  <a href="/toc">TOC</a>
+  <a href="/search" aria-current="page">Search</a>
+  <a href="/logout">Logout</a>
+</nav>
+
+<main class="container">
+  <h1>Search</h1>
+
+  <form method="get" action="/search" class="box">
+    <label for="q">Query</label>
+    <input id="q" name="q" type="text" th:value="${q}" />
+
+    <label for="mode">Search by</label>
+    <select id="mode" name="mode">
+      <option value="person" th:selected="${mode == 'person'}">Person</option>
+      <option value="topic" th:selected="${mode == 'topic'}">Topic (Category)</option>
+      <option value="title" th:selected="${mode == 'title'}">Title/Text</option>
+    </select>
+
+    <button type="submit">Search</button>
+  </form>
+
+  <section class="box" th:if="${searched}">
+    <h2 th:text="'Results (' + ${#lists.size(results)} + ')'"></h2>
+
+    <div th:if="${#lists.isEmpty(results)}">
+      <p>No matches.</p>
+    </div>
+
+    <ul th:if="${!#lists.isEmpty(results)}">
+      <li th:each="s : ${results}">
+        <a th:href="@{'/speech/' + ${s.id}}" th:text="${s.title}"></a>
+        <span th:if="${s.person != null}" th:text="' • ' + ${s.person.name}"></span>
+        <span th:if="${s.category != null}" th:text="' • ' + ${s.category.name}"></span>
+        <span th:if="${s.audioUrl != null && !#strings.isEmpty(s.audioUrl)}"> • audio</span>
+      </li>
+    </ul>
+  </section>
+</main>
+
+</body>
+</html>
