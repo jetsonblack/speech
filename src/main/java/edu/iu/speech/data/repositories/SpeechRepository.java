@@ -53,5 +53,7 @@ public interface SpeechRepository extends JpaRepository<Speech, Long> {
     """)
     List<Speech> searchByTitleOrText(@Param("q") String q);
 
-
+    // added for validation on existence
+    boolean existsByCategoryId(Long categoryId);
+    boolean existsByPersonId(Long personId);
 }

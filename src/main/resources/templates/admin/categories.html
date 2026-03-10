@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Categories</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <h1>Manage Categories</h1>
+        <p class="muted">Create, edit, and delete categories.</p>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/admin}">Admin</a>
+        <a th:href="@{/admin/categories}" aria-current="page">Categories</a>
+        <a th:href="@{/admin/people}">People</a>
+        <a th:href="@{/admin/speeches}">Speeches</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <p><a th:href="@{/admin/categories/new}">+ Create New Category</a></p>
+
+      <div th:if="${#lists.isEmpty(categories)}">
+        <p>No categories found.</p>
+      </div>
+
+      <div class="admin-table-wrap" th:if="${!#lists.isEmpty(categories)}">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="category : ${categories}">
+              <td th:text="${category.id}">1</td>
+              <td th:text="${category.name}">Category Name</td>
+              <td>
+                <div class="admin-actions">
+                  <a th:href="@{/admin/categories/{id}/edit(id=${category.id})}">Edit</a>
+                  <form th:action="@{/admin/categories/{id}/delete(id=${category.id})}" method="post"
+                        onsubmit="return confirm('Delete this category? This only works if no speeches use it.');">
+                    <button type="submit">Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

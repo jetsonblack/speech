@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${pageTitle}">Person Form</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <h1 th:text="${pageTitle}">Person Form</h1>
+        <p class="muted">Fill out the field below and save.</p>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/admin}">Admin</a>
+        <a th:href="@{/admin/people}">People</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <form th:action="@{${formAction}}" method="post" class="admin-form">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input id="name"
+                 name="name"
+                 type="text"
+                 required
+                 th:value="${person != null ? person.name : ''}">
+        </div>
+
+        <div class="admin-actions">
+          <button type="submit">Save</button>
+          <a th:href="@{/admin/people}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
