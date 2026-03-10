@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -9,18 +11,87 @@
 </head>
 
 <body>
-    <h1>Great Speech Application</h1>
-    <nav class="site-nav" aria-label="Primary">
-        <a href="index.html" aria-current="page">Home</a>
-        <a href="toc">toc</a>
-        <a href="login">login</a>
-        <a href="admin">admin</a>
-        <a href="/search">search</a>
-    </nav>
-    <div sec:authorize="isAuthenticated()">Logged in as <span sec:authentication="name"></span></div>
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <button type="submit">Logout</button>
-    </form>
+    <main class="container">
+        <header class="page-header">
+            <div>
+                <h1>Great Speech Application</h1>
+                <p class="muted">Table of contents and search in one place.</p>
+            </div>
+
+            <nav class="site-nav" aria-label="Primary">
+                <a th:href="@{/}" aria-current="page">Home</a>
+                <a th:href="@{/admin}">Admin</a>
+
+                <div class="auth-block" sec:authorize="isAuthenticated()">
+                    <span class="muted">Logged in as <strong sec:authentication="name"></strong></span>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <section class="panel hero-panel">
+            <div class="hero-copy">
+                <h2>Search the collection</h2>
+                <p class="muted">
+                    Search requires login. Public browsing stays available through the table of contents below.
+                </p>
+            </div>
+
+            <form method="get" th:action="@{/search}" class="search-form">
+                <div class="form-row">
+                    <label for="q">Query</label>
+                    <input id="q" name="q" type="text" th:value="${q}" placeholder="Enter a person, topic, or title">
+                </div>
+
+                <div class="form-row">
+                    <label for="mode">Search by</label>
+                    <select id="mode" name="mode">
+                        <option value="person" th:selected="${mode == 'person'}">Person</option>
+                        <option value="topic" th:selected="${mode == 'topic'}">Topic (Category)</option>
+                        <option value="title" th:selected="${mode == 'title'}">Title/Text</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="panel search-results" th:if="${searched}">
+            <h2 th:text="'Search Results (' + ${#lists.size(results)} + ')'">Search Results</h2>
+
+            <p th:if="${#lists.isEmpty(results)}">No matches found.</p>
+
+            <ul class="result-list" th:if="${!#lists.isEmpty(results)}">
+                <li th:each="s : ${results}">
+                    <a th:href="@{/speech/{id}(id=${s.id})}" th:text="${s.title}">Speech</a>
+                    <span class="meta" th:if="${s.person != null}" th:text="'by ' + ${s.person.name}"></span>
+                    <span class="meta" th:if="${s.category != null}" th:text="'in ' + ${s.category.name}"></span>
+                    <span class="meta" th:if="${s.audioUrl != null && !#strings.isEmpty(s.audioUrl)}">audio</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="toc-section">
+            <h2>Table of Contents</h2>
+
+            <div class="category-block" th:each="entry : ${toc}">
+                <h3 th:text="${entry.key}">Category</h3>
+
+                <ul class="toc-list">
+                    <li th:each="speech : ${entry.value}">
+                        <a th:href="@{/speech/{id}(id=${speech.id})}" th:text="${speech.title}">Speech</a>
+                        <span class="meta" th:text="'by ' + ${speech.person.name}">by Speaker</span>
+                        <span class="meta"
+                              th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">audio</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>

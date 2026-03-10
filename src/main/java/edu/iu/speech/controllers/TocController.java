@@ -13,9 +13,13 @@ public class TocController {
         this.tocService = tocService;
     }
 
-    @GetMapping({"/tableofcontents", "/toc", "/all"})
+    @GetMapping({"/", "/tableofcontents", "/toc", "/all"})
     public String toc(Model model) {
         model.addAttribute("toc", tocService.getTocGroupedByCategory());
-        return "toc";
+        model.addAttribute("q", "");
+        model.addAttribute("mode", "person");
+        model.addAttribute("results", List.of());
+        model.addAttribute("searched", false);
+        return "index";
     }
 }

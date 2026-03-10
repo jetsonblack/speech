@@ -13,8 +13,11 @@ import java.util.List;
 public class SearchController {
 
     private final SpeechRepository speechRepository;
-    public SearchController(SpeechRepository speechRepository) {
+    private final TocService tocService;
+
+    public SearchController(SpeechRepository speechRepository, TocService tocService) {
         this.speechRepository = speechRepository;
+        this.tocService = tocService;
     }
 
     @GetMapping
@@ -23,23 +26,28 @@ public class SearchController {
             @RequestParam(name = "mode", required = false, defaultValue = "person") String mode,
             Model model
     ) {
-        model.addAttribute("q", q == null ? "" : q);
+        // get query or null
+        String query = q == null ? "" : q.trim();
+
+        model.addAttribute("toc", tocService.getTocGroupedByCategory());
+        model.addAttribute("q", query);
         model.addAttribute("mode", mode);
 
         // No query yet: just show the form
-        if (q == null || q.trim().isEmpty()) {
+        if (query.isEmpty()) {
             model.addAttribute("results", List.of());
             model.addAttribute("searched", false);
-            return "search";
+            return "index";
         }
         // we take results based on which mode we are in, we query depedning on mode
         List<Speech> results = switch (mode) {
-            case "topic" -> speechRepository.searchByCategoryName(q.trim());
-            case "title" -> speechRepository.searchByTitleOrText(q.trim());
-            default -> speechRepository.searchByPersonName(q.trim());
+            case "topic" -> speechRepository.searchByCategoryName(query);
+            case "title" -> speechRepository.searchByTitleOrText(query);
+            default -> speechRepository.searchByPersonName(query);
         };
+
         model.addAttribute("results", results);
         model.addAttribute("searched", true);
-        return "search";
+        return "index";
     }
 }
