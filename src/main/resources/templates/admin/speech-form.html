@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title th:text="${pageTitle}">Speech Form</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+  <main class="container">
+    <header class="page-header">
+      <div>
+        <h1 th:text="${pageTitle}">Speech Form</h1>
+      </div>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/admin}">Admin</a>
+        <a th:href="@{/admin/speeches}">Speeches</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
+      </nav>
+    </header>
+
+    <section class="panel">
+      <form th:action="@{${formAction}}" method="post" class="admin-form">
+        <div class="form-row">
+          <label for="title">Title</label>
+          <input
+              id="title"
+              name="title"
+              type="text"
+              required
+              th:value="${speech != null ? speech.title : ''}">
+        </div>
+
+        <div class="form-row">
+          <label for="personId">Person</label>
+          <select id="personId" name="personId" required>
+            <option value="">Select a person</option>
+            <option th:each="person : ${people}"
+                    th:value="${person.id}"
+                    th:text="${person.name}"
+                    th:selected="${speech != null && speech.person != null && speech.person.id == person.id}">
+              Person
+            </option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="categoryId">Category</label>
+          <select id="categoryId" name="categoryId" required>
+            <option value="">Select a category</option>
+            <option th:each="category : ${categories}"
+                    th:value="${category.id}"
+                    th:text="${category.name}"
+                    th:selected="${speech != null && speech.category != null && speech.category.id == category.id}">
+              Category
+            </option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="audioUrl">Audio URL</label>
+          <input
+              id="audioUrl"
+              name="audioUrl"
+              type="text"
+              th:value="${speech != null && speech.audioUrl != null ? speech.audioUrl : ''}">
+        </div>
+
+        <div class="form-row">
+          <label for="content">Content</label>
+          <textarea id="content" name="content" rows="18" required
+                    th:text="${speech != null ? speech.content : ''}"></textarea>
+        </div>
+
+        <div class="admin-actions">
+          <button type="submit">Save</button>
+          <a th:href="@{/admin/speeches}">Cancel</a>
+        </div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
