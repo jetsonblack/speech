@@ -25,12 +25,20 @@ public class SearchController {
     public String searchPage(
             @RequestParam(name = "q", required = false) String q,
             @RequestParam(name = "mode", required = false, defaultValue = "person") String mode,
+            @RequestParam(name = "sort", required = false, defaultValue = "category") String sort,
+            @RequestParam(name = "dir", required = false, defaultValue = "asc") String dir,
             Model model
     ) {
         // get query or null
         String query = q == null ? "" : q.trim();
+        String normalizedSort = normalizeSort(sort);
+        String normalizedDir = normalizeDir(dir);
+        String normalizedMode = normalizeMode(mode);
 
-        model.addAttribute("toc", tocService.getTocGroupedByCategory());
+        model.addAttribute("sort", normalizedSort);
+        model.addAttribute("dir", normalizedDir);
+        model.addAttribute("tocGrouped", tocService.getTocGroupedByCategory(normalizedDir));
+        model.addAttribute("tocList", tocService.getSortedSpeeches(normalizedSort, normalizedDir));
         model.addAttribute("q", query);
         model.addAttribute("mode", mode);
 
@@ -41,7 +49,7 @@ public class SearchController {
             return "index";
         }
         // we take results based on which mode we are in, we query depedning on mode
-        List<Speech> results = switch (mode) {
+        List<Speech> results = switch (normalizedMode) {
             case "topic" -> speechRepository.searchByCategoryName(query);
             case "title" -> speechRepository.searchByTitleOrText(query);
             default -> speechRepository.searchByPersonName(query);
@@ -51,4 +59,33 @@ public class SearchController {
         model.addAttribute("searched", true);
         return "index";
     }
+    private String normalizeSort(String sort) {
+        if (sort == null) {
+            return "category";
+        }
+        return switch (sort.toLowerCase()) {
+            case "title", "author", "audio", "category" -> sort.toLowerCase();
+            default -> "category";
+        };
+    }
+
+    private String normalizeDir(String dir) {
+        if (dir == null) {
+            return "asc";
+        }
+        
+        return "desc".equalsIgnoreCase(dir) ? "desc" : "asc";
+    }
+
+    private String normalizeMode(String mode) {
+        if (mode == null) {
+            return "person";
+        }
+
+        return switch (mode.toLowerCase()) {
+            case "person", "topic", "title" -> mode.toLowerCase();
+            default -> "person";
+        };
+    }
+    
 }

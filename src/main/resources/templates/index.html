@@ -39,6 +39,8 @@
             </div>
 
             <form method="get" th:action="@{/search}" class="search-form">
+                <input type="hidden" name="sort" th:value="${sort}">
+                <input type="hidden" name="dir" th:value="${dir}">
                 <div class="form-row">
                     <label for="q">Query</label>
                     <input id="q" name="q" type="text" th:value="${q}" placeholder="Enter a person, topic, or title">
@@ -73,11 +75,36 @@
                 </li>
             </ul>
         </section>
+        <section class="panel sort-panel">
+            <h2>Browse the table of contents</h2>
 
-        <section class="toc-section">
+            <div class="form-actions">
+                <a th:href="@{/toc(sort='category', dir=${dir})}">Sort by Category</a>
+                <a th:href="@{/toc(sort='title', dir=${dir})}">Sort by Title</a>
+                <a th:href="@{/toc(sort='author', dir=${dir})}">Sort by Author</a>
+                <a th:href="@{/toc(sort='audio', dir=${dir})}">Sort by Audio</a>
+            </div>
+
+            <form method="get" th:action="@{/toc}" class="search-form">
+                <input type="hidden" name="sort" th:value="${sort}">
+
+                <div class="form-row">
+                    <label for="dir">Direction</label>
+                    <select id="dir" name="dir">
+                        <option value="asc" th:selected="${dir == 'asc'}">Ascending</option>
+                        <option value="desc" th:selected="${dir == 'desc'}">Descending</option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit">Apply</button>
+                </div>
+            </form>
+        </section>
+        <section class="toc-section" th:if="${sort == 'category'}">
             <h2>Table of Contents</h2>
 
-            <div class="category-block" th:each="entry : ${toc}">
+            <div class="category-block" th:each="entry : ${tocGrouped}">
                 <h3 th:text="${entry.key}">Category</h3>
 
                 <ul class="toc-list">
@@ -89,6 +116,20 @@
                     </li>
                 </ul>
             </div>
+        </section>
+
+        <section class="toc-section" th:if="${sort != 'category'}">
+            <h2 th:text="'Table of Contents - sorted by ' + ${sort}">Table of Contents</h2>
+
+            <ul class="toc-list">
+                <li th:each="speech : ${tocList}">
+                    <a th:href="@{/speech/{id}(id=${speech.id})}" th:text="${speech.title}">Speech</a>
+                    <span class="meta" th:text="'by ' + ${speech.person.name}">by Speaker</span>
+                    <span class="meta" th:text="'in ' + ${speech.category.name}">in Category</span>
+                    <span class="meta"
+                          th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">audio</span>
+                </li>
+            </ul>
         </section>
     </main>
 </body>

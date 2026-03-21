@@ -312,3 +312,6 @@ button:hover {
         grid-template-columns: 1fr;
     }
 }
+.sort-panel {
+    margin-top: 1rem;
+}

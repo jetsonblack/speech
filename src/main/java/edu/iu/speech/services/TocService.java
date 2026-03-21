@@ -1,10 +1,19 @@
 package edu.iu.speech.services;
 
-import edu.iu.speech.data.entities.Speech;
-import edu.iu.speech.data.repositories.SpeechRepository;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import edu.iu.speech.data.entities.Speech;
+import edu.iu.speech.data.repositories.SpeechRepository;
+
+
+// https://howtodoinjava.com/java/collections/java-comparator/
+// comparator seems like the best way to normalize and compare sort logic
 
 @Service
 public class TocService {
@@ -14,16 +23,59 @@ public class TocService {
         this.speechRepository = speechRepository;
     }
 
-    public Map<String, List<Speech>> getTocGroupedByCategory() {
-        List<Speech> speeches = speechRepository.findAllForToc();
-        // get all speeches here
+    public Map<String, List<Speech>> getTocGroupedByCategory(String dir) {
+        List<Speech> speeches = new ArrayList<>(speechRepository.findAllForToc());
+        Comparator<Speech> comparator = Comparator
+                .comparing((Speech s) -> safeString(s.getCategory().getName()), String.CASE_INSENSITIVE_ORDER)
+                .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER);
 
-        // for each s in speeches we want to get their category and their name,
+        if ("desc".equalsIgnoreCase(dir)) {
+            comparator = comparator.reversed();
+        }
+        speeches.sort(comparator);
+        // get all speeches here
         Map<String, List<Speech>> grouped = new LinkedHashMap<>();
-        for (Speech s : speeches) {
-            String categoryName = s.getCategory().getName();
-            grouped.computeIfAbsent(categoryName, k -> new ArrayList<>()).add(s);
+        for (Speech speech : speeches) {
+            String categoryName = speech.getCategory().getName();
+            grouped.computeIfAbsent(categoryName, k -> new ArrayList<>()).add(speech);
         }
         return grouped;
     }
+    public List<Speech> getSortedSpeeches(String sort, String dir) {
+        List<Speech> speeches = new ArrayList<>(speechRepository.findAllForToc());
+        Comparator<Speech> comparator = switch (sort) {
+            // sort via title
+            case "title" -> Comparator
+                    .comparing((Speech s) -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getCategory().getName()), String.CASE_INSENSITIVE_ORDER);
+            // sort bia author
+            case "author" -> Comparator
+                    .comparing((Speech s) -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getCategory().getName()), String.CASE_INSENSITIVE_ORDER);
+            // sort via audio eval
+            case "audio" -> Comparator
+                    .comparing((Speech s) -> hasAudio(s) ? 1 : 0)
+                    .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER);
+            // sort via category
+            case "category" -> Comparator
+                    .comparing((Speech s) -> safeString(s.getCategory().getName()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER);
+            // default to category
+            default -> Comparator
+                    .comparing((Speech s) -> safeString(s.getCategory().getName()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
+                    .thenComparing(s -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER);
+        };
+        if ("desc".equalsIgnoreCase(dir)) {
+            comparator = comparator.reversed();
+        }
+        speeches.sort(comparator);
+        return speeches;
+    }
+    private boolean hasAudio(Speech speech) { return speech.getAudioUrl() != null && !speech.getAudioUrl().isBlank(); }
+    private String safeString(String value) { return value == null ? "" : value; }
 }
