@@ -11,9 +11,3 @@
 
 
 # Meeting time 2:45pm at Luddy 2022
-//    ___________________________________________________________________________
-//                            <SpeechApplication.java>
-//                    formated with https://www.tutorialspoint.com/online_java_formatter.htm
-//                    adapted from textbook, taco application and previous
-//					  Spring Projects.
-//    ___________________________________________________________________________
