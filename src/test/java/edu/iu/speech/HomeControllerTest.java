@@ -6,6 +6,7 @@ package edu.iu.speech;
 //					  Spring Projects.
 //    ___________________________________________________________________________
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,10 +26,14 @@ public class HomeControllerTest {
 
     @Test
     void testHome() throws Exception {
+        long start = System.currentTimeMillis();
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"))
                 .andExpect(content().string(
                         containsString("Search requires login")));
+        
+        long duration = System.currentTimeMillis() - start;
+        assertTrue(duration < 2000);
     }
 }
