@@ -1,10 +1,15 @@
 package edu.iu.speech.config;
-
+//    ___________________________________________________________________________
+//                            <SecurityConfig.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

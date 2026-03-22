@@ -1,10 +1,18 @@
 package edu.iu.speech.data.repositories;
+//    ___________________________________________________________________________
+//                            <SpeechRepository.java>
+//                    formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
+import java.util.List;
+import java.util.Optional;
 
-import edu.iu.speech.data.entities.Speech;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.*;
+import edu.iu.speech.data.entities.Speech;
 
 public interface SpeechRepository extends JpaRepository<Speech, Long> {
 

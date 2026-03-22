@@ -1,13 +1,21 @@
 package edu.iu.speech.controllers;
+//    ___________________________________________________________________________
+//                            <SearchController.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.iu.speech.data.entities.Speech;
 import edu.iu.speech.data.repositories.SpeechRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import edu.iu.speech.services.TocService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/search")

@@ -1,10 +1,20 @@
 package edu.iu.speech.bootstrap;
-
-import org.springframework.context.annotation.Profile;
-import edu.iu.speech.data.entities.*;
-import edu.iu.speech.data.repositories.*;
+//    ___________________________________________________________________________
+//                            <DataLoader.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import edu.iu.speech.data.entities.Category;
+import edu.iu.speech.data.entities.Person;
+import edu.iu.speech.data.entities.Speech;
+import edu.iu.speech.data.repositories.CategoryRepository;
+import edu.iu.speech.data.repositories.PersonRepository;
+import edu.iu.speech.data.repositories.SpeechRepository;
 
 @Profile({ "dev", "prod" })
 @Component

@@ -1,5 +1,17 @@
 package edu.iu.speech.data.entities;
-import jakarta.persistence.*;
+//    ___________________________________________________________________________
+//                            <Person.java>
+//                    formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "persons", uniqueConstraints = @UniqueConstraint(columnNames = "name"))

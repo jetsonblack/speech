@@ -1,38 +1,43 @@
 <!DOCTYPE html>
+<!-- 
+   ___________________________________________________________________________
+                           <admin/index.html>
+                   formated with https://www.freeformatter.com/html-formatter.html
+                   some css and html taken from past website for i308
+   ___________________________________________________________________________
+   -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}" />
-</head>
-<body>
-  <main class="container">
-    <header class="page-header">
-      <div>
-        <h1>Admin Panel</h1>
-      </div>
-
-      <nav class="site-nav" aria-label="Primary">
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/admin}" aria-current="page">Admin</a>
-        <a th:href="@{/admin/speeches}">Speeches</a>
-        <a th:href="@{/admin/categories}">Categories</a>
-        <a th:href="@{/admin/people}">People</a>
-        <form th:action="@{/logout}" method="post" style="display:inline;">
-          <button type="submit">Logout</button>
-        </form>
-      </nav>
-    </header>
-
-    <section class="panel">
-      <h2>Available actions</h2>
-      <ul class="toc-list">
-        <li><a th:href="@{/admin/speeches}">Manage Speeches</a></li>
-        <li><a th:href="@{/admin/categories}">Manage Categories</a></li>
-        <li><a th:href="@{/admin/people}">Manage People</a></li>
-      </ul>
-    </section>
-  </main>
-</body>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Admin</title>
+      <link rel="stylesheet" th:href="@{/css/styles.css}" />
+   </head>
+   <body>
+      <main class="container">
+         <header class="page-header">
+            <div>
+               <h1>Admin Panel</h1>
+            </div>
+            <nav class="site-nav" aria-label="Primary">
+               <a th:href="@{/}">Home</a>
+               <a th:href="@{/admin}" aria-current="page">Admin</a>
+               <a th:href="@{/admin/speeches}">Speeches</a>
+               <a th:href="@{/admin/categories}">Categories</a>
+               <a th:href="@{/admin/people}">People</a>
+               <form th:action="@{/logout}" method="post" style="display:inline;">
+                  <button type="submit">Logout</button>
+               </form>
+            </nav>
+         </header>
+         <section class="panel">
+            <h2>Available actions</h2>
+            <ul class="toc-list">
+               <li><a th:href="@{/admin/speeches}">Manage Speeches</a></li>
+               <li><a th:href="@{/admin/categories}">Manage Categories</a></li>
+               <li><a th:href="@{/admin/people}">Manage People</a></li>
+            </ul>
+         </section>
+      </main>
+   </body>
 </html>

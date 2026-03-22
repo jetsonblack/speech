@@ -1,11 +1,18 @@
 package edu.iu.speech.controllers;
+//    ___________________________________________________________________________
+//                            <TocController.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
+import java.util.List;
 
-import edu.iu.speech.services.TocService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import java.util.*;
+
+import edu.iu.speech.services.TocService;
 
 
 @Controller

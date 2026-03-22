@@ -1,5 +1,10 @@
 package edu.iu.speech.services;
-
+//    ___________________________________________________________________________
+//                            <TocService.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedHashMap;

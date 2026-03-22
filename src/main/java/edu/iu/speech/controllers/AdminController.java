@@ -1,4 +1,21 @@
 package edu.iu.speech.controllers;
+//    ___________________________________________________________________________
+//                            <AdminController.java>
+//                    formated with formated with Checkstyle Extension for Java (VScode)
+//                    adapted from textbook, taco application and previous
+//					  Spring Projects.
+//    ___________________________________________________________________________
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import edu.iu.speech.data.entities.Category;
 import edu.iu.speech.data.entities.Person;
@@ -6,13 +23,6 @@ import edu.iu.speech.data.entities.Speech;
 import edu.iu.speech.data.repositories.CategoryRepository;
 import edu.iu.speech.data.repositories.PersonRepository;
 import edu.iu.speech.data.repositories.SpeechRepository;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")

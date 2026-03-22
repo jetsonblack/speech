@@ -1,26 +1,79 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-  <meta charset="utf-8">
-  <title th:text="${speech.title}">Speech</title>
-</head>
-
-<body>
-  <p><a href="/toc">← Back to TOC</a></p>
-
-  <h1 th:text="${speech.title}">Title</h1>
-  <p>
-    <strong th:text="${speech.person.name}">Person</strong>
-    <span> • </span>
-    <span th:text="${speech.category.name}">Category</span>
-  </p>
-
-  <div th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">
-    <audio controls th:src="${speech.audioUrl}"></audio>
-  </div>
-
-  <pre th:text="${speech.content}">Content</pre>
-</body>
-
+<!-- 
+   ___________________________________________________________________________
+                           <speech.html>
+                   formated with https://www.freeformatter.com/html-formatter.html
+                   some css and html taken from past website for i308
+   ___________________________________________________________________________
+-->
+<html lang="en"
+   xmlns:th="http://www.thymeleaf.org"
+   xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title th:text="${speech.title}"></title>
+      <link rel="stylesheet" th:href="@{/css/styles.css}">
+   </head>
+   <body class="speech">
+      <main class="container">
+         <header class="page-header">
+            <div>
+               <p class="muted">Great Speech Application</p>
+               <h1 th:text="${speech.title}">Title</h1>
+            </div>
+            <nav class="site-nav" aria-label="Primary">
+               <a th:href="@{/}">Home</a>
+               <a th:href="@{/toc}">TOC</a>
+               <a th:href="@{/admin}" sec:authorize="hasRole('ADMIN')">Admin</a>
+               <a th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
+               <div class="auth-block" sec:authorize="isAuthenticated()">
+                  <span class="muted">Logged in as <strong sec:authentication="name"></strong></span>
+                  <form th:action="@{/logout}" method="post">
+                     <button type="submit">Logout</button>
+                  </form>
+               </div>
+            </nav>
+         </header>
+         <section class="panel speech-panel">
+            <div class="speech-details-grid">
+               <div class="speech-meta-card">
+                  <p class="speech-meta-label">Speaker</p>
+                  <p class="speech-meta-value" th:text="${speech.person.name}">Speak Name</p>
+               </div>
+               <div class="speech-meta-card">
+                  <p class="speech-meta-label">Category</p>
+                  <p class="speech-meta-value" th:text="${speech.category.name}"> Cat Name</p>
+               </div>
+               <div class="speech-meta-card">
+                  <p class="speech-meta-label">Audio</p>
+                  <p class="speech-meta-value"
+                     th:text="${speech.audioUrl != null} ? 'Available' : 'Not available'">
+                     default
+                  </p>
+               </div>
+            </div>
+            <div class="speech-actions">
+               <a th:href="@{/toc}">← Back to Table of Contents</a>
+               <a th:href="@{/admin/speeches}" sec:authorize="hasRole('ADMIN')">Manage Speeches</a>
+            </div>
+            <section class="panel audio-thingy"
+               th:if="${speech.audioUrl != null}">
+               <h2>Listen Here</h2>
+               <audio controls th:src="${speech.audioUrl}">
+                  audio
+               </audio>
+               <p class="muted">
+                  <a th:href="${speech.audioUrl}" target="_blank" rel="noopener noreferrer">Open audio in a new tab</a>
+               </p>
+            </section>
+            <section class="panel speech-content-panel">
+               <h2>Text</h2>
+               <article class="speech-content" th:text="${speech.content}">
+                  Speech text goes here.
+               </article>
+            </section>
+         </section>
+      </main>
+   </body>
 </html>

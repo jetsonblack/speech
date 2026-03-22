@@ -1,65 +1,68 @@
 <!DOCTYPE html>
+<!-- 
+   ___________________________________________________________________________
+                           <admin/people.html>
+                   formated with https://www.freeformatter.com/html-formatter.html
+                   some css and html taken from past website for i308
+   ___________________________________________________________________________
+   -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Manage People</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}" />
-</head>
-<body>
-  <main class="container">
-    <header class="page-header">
-      <div>
-        <h1>Manage People</h1>
-        <p class="muted">Create, edit, and delete people.</p>
-      </div>
-
-      <nav class="site-nav" aria-label="Primary">
-        <a th:href="@{/}">Home</a>
-        <a th:href="@{/admin}">Admin</a>
-        <a th:href="@{/admin/categories}">Categories</a>
-        <a th:href="@{/admin/people}" aria-current="page">People</a>
-        <a th:href="@{/admin/speeches}">Speeches</a>
-        <form th:action="@{/logout}" method="post" style="display:inline;">
-          <button type="submit">Logout</button>
-        </form>
-      </nav>
-    </header>
-
-    <section class="panel">
-      <p><a th:href="@{/admin/people/new}">+ Create New Person</a></p>
-
-      <div th:if="${#lists.isEmpty(people)}">
-        <p>No people found.</p>
-      </div>
-
-      <div class="admin-table-wrap" th:if="${!#lists.isEmpty(people)}">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="person : ${people}">
-              <td th:text="${person.id}">1</td>
-              <td th:text="${person.name}">Person Name</td>
-              <td>
-                <div class="admin-actions">
-                  <a th:href="@{/admin/people/{id}/edit(id=${person.id})}">Edit</a>
-                  <form th:action="@{/admin/people/{id}/delete(id=${person.id})}" method="post"
-                        onsubmit="return confirm('Delete this person? This only works if no speeches use them.');">
-                    <button type="submit">Delete</button>
-                  </form>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-</body>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Manage People</title>
+      <link rel="stylesheet" th:href="@{/css/styles.css}" />
+   </head>
+   <body>
+      <main class="container">
+         <header class="page-header">
+            <div>
+               <h1>Manage People</h1>
+               <p class="muted">Create, edit, and delete people.</p>
+            </div>
+            <nav class="site-nav" aria-label="Primary">
+               <a th:href="@{/}">Home</a>
+               <a th:href="@{/admin}">Admin</a>
+               <a th:href="@{/admin/categories}">Categories</a>
+               <a th:href="@{/admin/people}" aria-current="page">People</a>
+               <a th:href="@{/admin/speeches}">Speeches</a>
+               <form th:action="@{/logout}" method="post" style="display:inline;">
+                  <button type="submit">Logout</button>
+               </form>
+            </nav>
+         </header>
+         <section class="panel">
+            <p><a th:href="@{/admin/people/new}">+ Create New Person</a></p>
+            <div th:if="${#lists.isEmpty(people)}">
+               <p>No people found.</p>
+            </div>
+            <div class="admin-table-wrap" th:if="${!#lists.isEmpty(people)}">
+               <table class="admin-table">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Actions</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr th:each="person : ${people}">
+                        <td th:text="${person.id}">1</td>
+                        <td th:text="${person.name}">Person Name</td>
+                        <td>
+                           <div class="admin-actions">
+                              <a th:href="@{/admin/people/{id}/edit(id=${person.id})}">Edit</a>
+                              <form th:action="@{/admin/people/{id}/delete(id=${person.id})}" method="post"
+                                 onsubmit="return confirm('Delete this person? This only works if no speeches use them.');">
+                                 <button type="submit">Delete</button>
+                              </form>
+                           </div>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </section>
+      </main>
+   </body>
 </html>
