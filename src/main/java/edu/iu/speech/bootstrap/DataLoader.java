@@ -34,8 +34,12 @@ public class DataLoader implements CommandLineRunner {
 
         @Override
         public void run(String... args) {
-                if (speechRepository.count() > 0)
+                long count = speechRepository.count();
+                System.out.println("Speech count before running ts: " + count);
+                if (count > 0) {
+                        System.out.println("Skipping loading of data because speeches already exist.");
                         return;
+                }
 
                 var p1 = personRepository.save(new Person("Jetson Black"));
                 var p2 = personRepository.save(new Person("Mary Black"));
@@ -74,5 +78,6 @@ public class DataLoader implements CommandLineRunner {
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                                 null,
                                 p3, c3));
+                System.out.println("Speech count after seed: " + speechRepository.count());
         }
 }
