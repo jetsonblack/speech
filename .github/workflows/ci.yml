@@ -66,4 +66,4 @@ jobs:
       - name: Trigger Render deploy
         run: |
           IMAGE_URL="ghcr.io/${{ github.repository }}:sha-${GITHUB_SHA}"
-          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}&imgURL=${IMAGE_URL}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
