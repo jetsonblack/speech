@@ -7,7 +7,8 @@
 - [x] admin templates for all actions and such
 - [ ] SCRUM-62 Validation
 - [ ] SCRUM-64 Friendly error handling
-- [ ] SCRUM-70 UI/UX polish beyond basic styling
+- [x] SCRUM-70 UI/UX polish beyond basic styling
 
 
 # Meeting time 2:45pm at Luddy 2022
+
