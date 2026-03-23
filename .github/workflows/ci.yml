@@ -30,7 +30,7 @@ jobs:
         run: ./mvnw -B test
 
   publish-ghcr:
-    environment: speechv2
+    environment: renderv2
     needs: test
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
