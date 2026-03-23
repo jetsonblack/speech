@@ -52,7 +52,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}
           tags: |
             type=raw,value=latest
-            type=sha
+            type=raw,value=sha-${{ github.sha }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
@@ -64,4 +64,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Trigger Render deploy
-        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
+        run: |
+          IMAGE_URL="ghcr.io/${{ github.repository }}:sha-${GITHUB_SHA}"
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}&imgURL=${IMAGE_URL}"
