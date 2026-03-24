@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.server.ResponseStatusException;
 
 import edu.iu.speech.data.repositories.SpeechRepository;
-
+// https://www.baeldung.com/spring-pathvariable
+// lets path be id
 @Controller
 public class SpeechController {
     private final SpeechRepository speechRepository;

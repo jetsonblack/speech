@@ -38,6 +38,7 @@ public class SearchController {
             Model model
     ) {
         // get query or null
+        // set defaults for sorting
         String query = q == null ? "" : q.trim();
         String normalizedSort = normalizeSort(sort);
         String normalizedDir = normalizeDir(dir);
@@ -67,6 +68,9 @@ public class SearchController {
         model.addAttribute("searched", true);
         return "index";
     }
+
+    // was having some weird behavior with sort, added this and it fixed it
+    // basically handles nulls and switches depending on 
     private String normalizeSort(String sort) {
         if (sort == null) {
             return "category";
@@ -78,6 +82,7 @@ public class SearchController {
     }
 
     private String normalizeDir(String dir) {
+        // default to ascending order
         if (dir == null) {
             return "asc";
         }
@@ -86,6 +91,7 @@ public class SearchController {
     }
 
     private String normalizeMode(String mode) {
+        // default to person
         if (mode == null) {
             return "person";
         }

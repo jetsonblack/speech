@@ -36,9 +36,10 @@
             <div class="hero-copy">
                <h2>Search the collection</h2>
                <p class="muted">
-                  Search requires login. Public browsing stays available through the table of contents below.
+                  Search requires login.
                </p>
             </div>
+            <!-- search -->
             <form method="get" th:action="@{/search}" class="search-form">
                <input type="hidden" name="sort" th:value="${sort}">
                <input type="hidden" name="dir" th:value="${dir}">
@@ -59,10 +60,13 @@
                </div>
             </form>
          </section>
+         <!-- if searched, then show results -->
          <section class="panel search-results" th:if="${searched}">
             <h2 th:text="'Search Results (' + ${#lists.size(results)} + ')'">Search Results</h2>
+            <!-- if the search list is empty, this renders -->
             <p th:if="${#lists.isEmpty(results)}">No matches found.</p>
             <ul class="result-list" th:if="${!#lists.isEmpty(results)}">
+               <!-- for each s in results, display these details -->
                <li th:each="s : ${results}">
                   <a th:href="@{/speech/{id}(id=${s.id})}" th:text="${s.title}">Speech</a>
                   <span class="meta" th:if="${s.person != null}" th:text="'by ' + ${s.person.name}"></span>
@@ -71,6 +75,10 @@
                </li>
             </ul>
          </section>
+
+
+         <!-- SORT STUFF -->
+          <!-- link will switch sort type with dir preserved -->
          <section class="panel sort-panel">
             <div class="form-actions">
                <a th:href="@{/toc(sort='category', dir=${dir})}">Sort by Category</a>
@@ -83,6 +91,7 @@
                <div class="form-row">
                   <label for="dir">Direction</label>
                   <select id="dir" name="dir">
+                     <!-- select type of ascending or decending -->
                      <option value="asc" th:selected="${dir == 'asc'}">Ascending</option>
                      <option value="desc" th:selected="${dir == 'desc'}">Descending</option>
                   </select>
@@ -92,6 +101,7 @@
                </div>
             </form>
          </section>
+         <!-- by default, we sort via category -->
          <section class="toc-section" th:if="${sort == 'category'}">
             <h2>Table of Contents</h2>
             <div class="category-block" th:each="entry : ${tocGrouped}">
@@ -106,15 +116,17 @@
                </ul>
             </div>
          </section>
+         <!-- if not category/default then we sort by whatever is selected -->
          <section class="toc-section" th:if="${sort != 'category'}">
             <h2 th:text="'Table of Contents - sorted by ' + ${sort}">Table of Contents</h2>
             <ul class="toc-list">
+               <!-- for each speech in the list, we display this -->
                <li th:each="speech : ${tocList}">
                   <a th:href="@{/speech/{id}(id=${speech.id})}" th:text="${speech.title}">Speech</a>
                   <span class="meta" th:text="'by ' + ${speech.person.name}">by Speaker</span>
                   <span class="meta" th:text="'in ' + ${speech.category.name}">in Category</span>
                   <span class="meta"
-                     th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">audio</span>
+                     th:if="${speech.audioUrl != null && !#strings.isEmpty(speech.audioUrl)}">[ audio ]</span>
                </li>
             </ul>
          </section>

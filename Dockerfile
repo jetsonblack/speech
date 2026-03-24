@@ -15,3 +15,4 @@ ENV SPRING_PROFILES_ACTIVE=prod
 ENV SPRING_DATASOURCE_URL=jdbc:sqlite:/data/app.db?foreign_keys=on
 ENV PORT=8080
 ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT} -jar /app/app.jar"]
+# note: very limited docker experience led to claude and documentation bascially doing this part

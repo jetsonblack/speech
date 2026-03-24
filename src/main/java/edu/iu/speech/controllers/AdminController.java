@@ -53,6 +53,7 @@ public class AdminController {
         return "admin/speeches";
     }
 
+    // adapted from printstream application & 
     @GetMapping("/speeches/new")
     public String newSpeechForm(Model model) {
         loadSpeechFormData(model);
@@ -62,6 +63,10 @@ public class AdminController {
         return "admin/speech-form";
     }
 
+    // https://howtodoinjava.com/spring-mvc/controller-getmapping-postmapping/
+    // https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/requestparam.html
+    // we are take the schema of a speech, lookup a associated person and category
+    // cleaning input and then putting it into a new speech entity
     @PostMapping("/speeches")
     public String createSpeech(
             @RequestParam String title,
@@ -78,6 +83,7 @@ public class AdminController {
         String cleanAudioUrl = normalizeBlank(audioUrl);
 
         if (cleanTitle == null || cleanContent == null || personOpt.isEmpty() || categoryOpt.isEmpty()) {
+            // empty validation, update later
             return "redirect:/admin/speeches";
         }
 
@@ -93,6 +99,8 @@ public class AdminController {
         return "redirect:/admin/speeches";
     }
 
+    // editing a speech is essentially just using the id, and looking ast the model and
+    // grabbing the associated speech and then using .setX to set new data to the speech
     @GetMapping("/speeches/{id}/edit")
     public String editSpeechForm(@PathVariable Long id, Model model) {
         Optional<Speech> speechOpt = speechRepository.findByIdWithRefs(id);
@@ -140,6 +148,7 @@ public class AdminController {
         return "redirect:/admin/speeches";
     }
 
+    // delete is very easy, just delete the ID if it exists
     @PostMapping("/speeches/{id}/delete")
     public String deleteSpeech(@PathVariable Long id) {
         if (speechRepository.existsById(id)) {
@@ -148,6 +157,10 @@ public class AdminController {
         return "redirect:/admin/speeches";
     }
 
+    // this section took a bit, had to debug with help from claude, essentially we are taking all the
+    // categories, converting into a stream() https://www.geeksforgeeks.org/java/stream-in-java/
+    // then we do the actual sorting on the stream, then convert it back into a list (this was the weird part
+    // since i really don't work with streams that much)
     @GetMapping("/categories")
     public String categoryList(Model model) {
         List<Category> categories = categoryRepository.findAll()
@@ -305,6 +318,8 @@ public class AdminController {
         model.addAttribute("categories", categories);
     }
 
+
+    // helper functions that just clean and trim a string for input
     private String normalizeBlank(String value) {
         if (value == null) {
             return null;

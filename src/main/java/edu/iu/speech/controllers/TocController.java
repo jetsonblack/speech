@@ -42,6 +42,9 @@ public class TocController {
         return "index";
     }
 
+
+
+// might be redundent, but oh well
     private String normalizeSort(String sort) {
         if (sort == null) {
             return "category";

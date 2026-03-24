@@ -16,6 +16,8 @@ import jakarta.persistence.UniqueConstraint;
 @Entity
 @Table(name = "persons", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Person {
+    // https://stackoverflow.com/questions/20603638/what-is-the-use-of-annotations-id-and-generatedvaluestrategy-generationtype
+    // essentially we set a ID and then use a generatedIdentity to attach
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

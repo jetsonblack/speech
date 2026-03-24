@@ -7,6 +7,7 @@
    ___________________________________________________________________________
    -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+   <!-- pretty much ripped from i308 form page, adapted to project -->
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,6 +34,7 @@
             <form th:action="@{${formAction}}" method="post" class="admin-form">
                <div class="form-row">
                   <label for="name">Name</label>
+                  <!-- if cat exists, use the name otherwise use '' -->
                   <input id="name"
                      name="name"
                      type="text"

@@ -19,6 +19,7 @@ import edu.iu.speech.data.repositories.SpeechRepository;
 
 // https://howtodoinjava.com/java/collections/java-comparator/
 // comparator seems like the best way to normalize and compare sort logic
+// use later for personal website
 
 @Service
 public class TocService {
@@ -47,6 +48,10 @@ public class TocService {
         return grouped;
     }
     public List<Speech> getSortedSpeeches(String sort, String dir) {
+        // ok, we use switch depending on sort mode, 
+        // then for each sort mode we will use comparator to sort between the speeches
+        // depending on the type of sorting, used claude to help debug this since i don't 
+        // really know how to use comparator, 
         List<Speech> speeches = new ArrayList<>(speechRepository.findAllForToc());
         Comparator<Speech> comparator = switch (sort) {
             // sort via title
@@ -75,6 +80,7 @@ public class TocService {
                     .thenComparing(s -> safeString(s.getTitle()), String.CASE_INSENSITIVE_ORDER)
                     .thenComparing(s -> safeString(s.getPerson().getName()), String.CASE_INSENSITIVE_ORDER);
         };
+        // if descending, reverse the collection, then put the collection into speech and return
         if ("desc".equalsIgnoreCase(dir)) {
             comparator = comparator.reversed();
         }

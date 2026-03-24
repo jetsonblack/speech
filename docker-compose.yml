@@ -13,3 +13,6 @@ services:
 
 volumes:
   speeches-db:
+
+
+# note: very limited docker experience led to claude and documentation bascially doing this part

@@ -25,7 +25,8 @@ public class Speech {
     @Column(nullable = false)
     private String title;
 
-// use lob here for large/big ahh speeches
+// use lob here for large/big ahh speeches, was using just normal @Column but found
+// this worked better with huge lorem ipsum test, claude helped debug this one.
     @Lob 
     @Column(nullable = false)
     private String content;

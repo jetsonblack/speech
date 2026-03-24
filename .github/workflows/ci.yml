@@ -29,6 +29,9 @@ jobs:
       - name: Run tests
         run: ./mvnw -B test
 
+
+# this section is adapted from taco application with help from here: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+# debug help from AI
   publish-ghcr:
     environment: renderv2
     needs: test
